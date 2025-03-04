@@ -1,6 +1,9 @@
 {
   "compilerOptions": {
     "module": "commonjs",
+    "paths": {
+      "@/*": ["src/*"] // 将 @/ 映射到 src/
+    },
     "declaration": true,
     "removeComments": true,
     "emitDecoratorMetadata": true,

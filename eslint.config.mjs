@@ -7,6 +7,14 @@ import tseslint from 'typescript-eslint';
 export default tseslint.config(
   {
     ignores: ['eslint.config.mjs'],
+    // settings: {
+    //   'import/resolver': {
+    //     alias: {
+    //       map: [['@', './src']], // 将 @ 映射到 src 目录
+    //       extensions: ['.ts', '.js'],
+    //     },
+    //   },
+    // },
   },
   eslint.configs.recommended,
   ...tseslint.configs.recommendedTypeChecked,

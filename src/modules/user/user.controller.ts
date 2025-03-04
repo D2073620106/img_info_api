@@ -8,4 +8,9 @@ export class UserController {
   getUser(): any {
     return this.userService.getUser();
   }
+
+  @Get('/list')
+  getUserList(): any {
+    return this.userService.findAllUsers();
+  }
 }
