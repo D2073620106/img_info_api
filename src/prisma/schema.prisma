@@ -8,7 +8,27 @@ generator client {
 }
 
 model User {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String?
+  id          Int       @id @default(autoincrement()) // 用户 ID
+  username    String?   @unique // 用户名（可选）
+  phone       String?   @unique // 手机号（可选）
+  email       String?   @unique // 邮箱（可选）
+  password    String? // 密码（加密存储）
+  nickname    String? // 昵称
+  avatar      String? // 头像 URL
+  openId      String?   @unique // 微信 OpenID（小程序登录）
+  unionId     String?   @unique // 微信 UnionID（跨平台用户识别）
+  appleId     String?   @unique // Apple ID（苹果登录）
+  googleId    String?   @unique // Google ID（谷歌登录）
+  status      String    @default("active") // 用户状态：active（激活）、disabled（禁用）
+  createdAt   DateTime  @default(now()) // 注册时间
+  updatedAt   DateTime  @updatedAt // 最后更新时间
+  lastLoginAt DateTime? // 最后登录时间
+  gender      String? // 性别：male（男）、female（女）、unknown（未知）
+  birthday    DateTime? // 生日
+  address     String? // 地址
+
+  @@index([phone]) // 为手机号创建索引
+  @@index([email]) // 为邮箱创建索引
+  @@index([openId]) // 为微信 OpenID 创建索引
+  @@index([unionId]) // 为微信 UnionID 创建索引
 }
