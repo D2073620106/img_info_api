@@ -7,7 +7,7 @@ generator client {
   provider = "prisma-client-js"
 }
 
-model User {
+model user {
   id          Int       @id @default(autoincrement()) // 用户 ID
   username    String?   @unique // 用户名（可选）
   phone       String?   @unique // 手机号（可选）
@@ -31,4 +31,23 @@ model User {
   @@index([email]) // 为邮箱创建索引
   @@index([openId]) // 为微信 OpenID 创建索引
   @@index([unionId]) // 为微信 UnionID 创建索引
+}
+
+model image_record {
+  id        Int       @id @default(autoincrement()) // 记录 ID
+  imageUrl  String // 图片 URL
+  shotAt    DateTime? // 图片拍摄时间（可选）
+  latitude  Float? // 图片拍摄纬度（可选）
+  longitude Float? // 图片拍摄经度（可选）
+  address   String? // 图片拍摄地址（可选）
+  createdAt DateTime  @default(now()) // 记录创建时间
+  updatedAt DateTime  @updatedAt // 记录更新时间
+
+  // 扩展字段（后期可添加）
+  description String? // 图片描述（可选）
+  userId      Int? // 关联的用户 ID（可选）
+  result      Json? // 图片解析结果（JSON 格式，可选）
+
+  @@index([shotAt]) // 为拍摄时间创建索引
+  @@index([latitude, longitude]) // 为经纬度创建索引
 }
