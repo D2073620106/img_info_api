@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 
 export class RegisterDto {
-  @ApiProperty({ description: 'openId' })
-  openId: string;
+  @ApiProperty({ description: 'code' })
+  code: string;
 }

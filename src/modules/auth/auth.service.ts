@@ -32,6 +32,7 @@ export class AuthService {
   }
 
   async register(registerDto: RegisterDto) {
+    console.log(registerDto);
     const slot = this.configService.get<string>('PWD_SLOT', '111111111');
     const default_pwd = this.configService.get<string>('DEFAULT_PWD', '123456');
     const user = {
