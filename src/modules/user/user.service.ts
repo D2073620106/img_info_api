@@ -26,7 +26,6 @@ export class UserService {
     if (Object.keys(where).length === 0) {
       return null;
     }
-    console.log(where, 'where');
     return this.prisma.user.findUnique({
       where: {
         ...where,
@@ -35,7 +34,6 @@ export class UserService {
   }
 
   async findOneByOpenId(openId: string) {
-    console.log(openId);
     return this.prisma.user.findUnique({
       where: {
         openId,
@@ -57,7 +55,16 @@ export class UserService {
     });
   }
 
-  async getUserInfo() {
-    return await this.prisma.user.findMany();
+  async getUserInfo(id: number) {
+    const user = await this.prisma.user.findUnique({
+      where: {
+        id,
+      },
+    });
+    if (user) {
+      user.password = '';
+      return user;
+    }
+    return null;
   }
 }
