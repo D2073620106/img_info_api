@@ -26,6 +26,7 @@ model user {
   gender      String? // 性别：male（男）、female（女）、unknown（未知）
   birthday    DateTime? // 生日
   address     String? // 地址
+  address1    String? // 地址
 
   @@index([phone]) // 为手机号创建索引
   @@index([email]) // 为邮箱创建索引
