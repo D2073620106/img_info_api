@@ -55,6 +55,18 @@ export class UserService {
     });
   }
 
+  async updateUser(id:number,user:{nickname:string, avatar:string}){
+    return this.prisma.user.update({
+      where:{
+        id:id
+      },
+      data:{
+        nickname:user.nickname,
+        avatar:user.avatar
+      }
+    })
+  }
+
   async getUserInfo(id: number) {
     const user = await this.prisma.user.findUnique({
       where: {

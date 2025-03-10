@@ -5,6 +5,9 @@ import { UserModule } from './modules/user/user.module';
 import { PrismaModule } from './shared/prisma/prisma.module';
 import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from '@/modules/auth/auth.module';
+import { UploadModule } from '@/modules/upload/upload.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 // import { AuthModule } from '@/modules/auth/auth.module';
 
 @Module({
@@ -14,9 +17,14 @@ import { AuthModule } from '@/modules/auth/auth.module';
       isGlobal: true,
       cache: true,
     }),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'uploads'), // 上传文件的目录
+      serveRoot: '/uploads', // 访问路径前缀
+    }),
     PrismaModule,
     UserModule,
     AuthModule,
+    UploadModule
   ],
   controllers: [AppController],
   providers: [AppService],
