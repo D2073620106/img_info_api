@@ -12,11 +12,12 @@ export class ResponseUtil {
 
   static error(
     code: number,
-    msg: string = 'error',
+    msg: any = 'error',
+    data:any = null
   ): { code: number; data: null; msg: string } {
     return {
       code,
-      data: null,
+      data,
       msg,
     };
   }

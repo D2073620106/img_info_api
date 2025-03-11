@@ -4,6 +4,7 @@ import { ConfigService } from '@nestjs/config';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { DefaultStatusInterceptor } from '@/common/interceptors/default-status.interceptor';
 import { JwtAuthGuard } from '@/common/guards/jwt-auth.guard';
+import { GlobalExceptionFilter } from '@/common/filters/global-exception.filter';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, { abortOnError: false });
@@ -38,6 +39,9 @@ async function bootstrap() {
       document,
     );
   }
+
+  // 注册全局异常过滤器
+  app.useGlobalFilters(new GlobalExceptionFilter());
 
   // 注册全局拦截器
   // app.useGlobalInterceptors(new DefaultStatusInterceptor());
