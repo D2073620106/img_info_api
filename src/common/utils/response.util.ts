@@ -1,24 +1,26 @@
 export class ResponseUtil {
-  static success<T>(
+  static success<T, R>(
     data: T,
-    msg: string = 'success',
-  ): { code: number; data: T; msg: string } {
+    message: string = 'success',
+    meta?: R,
+  ): { code: number; data: T; meta: R; message: string } {
     return {
       code: 200,
       data,
-      msg,
+      meta: meta ? meta : ({} as R),
+      message,
     };
   }
 
   static error(
     code: number,
-    msg: any = 'error',
-    data:any = null
-  ): { code: number; data: null; msg: string } {
+    message: any = 'error',
+    data: any = null,
+  ): { code: number; data: null; message: string } {
     return {
       code,
       data,
-      msg,
+      message,
     };
   }
 }

@@ -1,8 +1,13 @@
+/*
+ * @Date: 2025-03-11 23:33:12
+ * @LastEditors: DMBro 2073620106@qq.com
+ * @LastEditTime: 2025-03-12 16:04:45
+ * @FilePath: \img_parse\src\modules\upload\upload.service.ts
+ */
 // file-upload.service.ts
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { extname } from 'path';
-import { ImageProcessorService } from '@/modules/upload/image-processor.service';
 
 @Injectable()
 export class UploadService {
@@ -23,7 +28,9 @@ export class UploadService {
     }
     // 将路径中的反斜杠替换为正斜杠
     const fileUrl = `${staticDomain}/${file.path.replace(/\\/g, '/')}`;
-    const thumbUrl = thumbnailPath ? `${staticDomain}/${thumbnailPath.replace(/\\/g, '/')}` : null
+    const thumbUrl = thumbnailPath
+      ? `${staticDomain}/${thumbnailPath.replace(/\\/g, '/')}`
+      : null;
 
     return {
       file: file.filename,

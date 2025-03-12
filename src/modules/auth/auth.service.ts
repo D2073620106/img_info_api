@@ -1,3 +1,9 @@
+/*
+ * @Date: 2025-03-08 11:31:39
+ * @LastEditors: DMBro 2073620106@qq.com
+ * @LastEditTime: 2025-03-12 15:18:12
+ * @FilePath: \img_parse\src\modules\auth\auth.service.ts
+ */
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UserService } from '@/modules/user/user.service';
@@ -30,6 +36,9 @@ export class AuthService {
   async getWechatSession(
     code: string,
   ): Promise<{ openId: string; session_key: string }> {
+    if (!code) {
+      throw new Error('Code is required');
+    }
     const appid = this.configService.get<string>('WX_APPID'); // 小程序 AppID
     const secret = this.configService.get<string>('WX_APP_SECRET'); // 小程序 AppSecret
     const url = `https://api.weixin.qq.com/sns/jscode2session?appid=${appid}&secret=${secret}&js_code=${code}&grant_type=authorization_code`;

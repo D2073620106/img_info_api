@@ -6,15 +6,9 @@ import {
   UploadedFile,
   UseInterceptors,
 } from '@nestjs/common';
-import { FileInterceptor } from '@nestjs/platform-express';
-import { diskStorage } from 'multer';
-import { extname } from 'path';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { ResponseUtil } from '@/common/utils/response.util';
-import { AuthService } from '@/modules/auth/auth.service';
 import { ConfigService } from '@nestjs/config';
-import * as fs from 'fs';
-import { ImageProcessorService } from '@/modules/upload/image-processor.service';
 import { CustomFileInterceptor } from '@/modules/upload/custom-file.interceptor';
 import { UploadService } from '@/modules/upload/upload.service';
 
@@ -63,7 +57,7 @@ export class UploadController {
   @UseInterceptors(
     new CustomFileInterceptor('file', 'image', { imageSize: [128, 128] }),
   )
-  async uploadImage(@UploadedFile() file: Express.Multer.File) {
+  uploadImage(@UploadedFile() file: Express.Multer.File) {
     // const staticDomain = this.configService.get('STATIC_DOMAIN');
     // const originalPath = file.path; // 原始文件路径
     // const thumbnailPath = originalPath.replace(

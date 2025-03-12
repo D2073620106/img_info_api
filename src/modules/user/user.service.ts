@@ -1,8 +1,15 @@
+/*
+ * @Date: 2025-03-08 11:31:39
+ * @LastEditors: DMBro 2073620106@qq.com
+ * @LastEditTime: 2025-03-12 15:36:32
+ * @FilePath: \img_parse\src\modules\user\user.service.ts
+ */
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '@/shared/prisma/prisma.service';
 import { RandomUtil } from '@/common/utils/random.utils';
 import { PwdUtils } from '@/common/utils/pwd.utils';
 import { ConfigService } from '@nestjs/config';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 @Injectable()
 export class UserService {
@@ -55,16 +62,23 @@ export class UserService {
     });
   }
 
-  async updateUser(id:number,user:{nickname:string, avatar:string}){
-    return this.prisma.user.update({
-      where:{
-        id:id
-      },
-      data:{
-        nickname:user.nickname,
-        avatar:user.avatar
-      }
-    })
+  async updateUser(id: number, user: UpdateUserDto) {
+    const data = user;
+
+    if (Object.keys(data).length === 0) {
+      throw new Error('No valid fields to update');
+    }
+    try {
+      return await this.prisma.user.update({
+        where: {
+          id: id,
+        },
+        data: data,
+      });
+    } catch (error) {
+      console.error('Failed to update user:', error);
+      throw new Error('User not found or update failed');
+    }
   }
 
   async getUserInfo(id: number) {

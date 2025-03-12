@@ -8,7 +8,7 @@ import { AuthModule } from '@/modules/auth/auth.module';
 import { UploadModule } from '@/modules/upload/upload.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
-// import { AuthModule } from '@/modules/auth/auth.module';
+import { ImageParseModule } from './modules/image-parse/image-parse.module';
 
 @Module({
   imports: [
@@ -24,7 +24,8 @@ import { join } from 'path';
     PrismaModule,
     UserModule,
     AuthModule,
-    UploadModule
+    UploadModule,
+    ImageParseModule,
   ],
   controllers: [AppController],
   providers: [AppService],

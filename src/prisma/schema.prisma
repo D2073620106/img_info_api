@@ -37,6 +37,7 @@ model user {
 model image_record {
   id        Int       @id @default(autoincrement()) // 记录 ID
   imageUrl  String // 图片 URL
+  thumbUrl  String // 缩略图图片 URL
   shotAt    DateTime? // 图片拍摄时间（可选）
   latitude  Float? // 图片拍摄纬度（可选）
   longitude Float? // 图片拍摄经度（可选）
