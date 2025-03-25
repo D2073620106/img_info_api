@@ -1,35 +1,26 @@
 const path = require('path');
+
 module.exports = {
   apps: [
     {
-      name: 'img_info_parse', // 应用名称
-      script: 'dist/main.js', // 入口文件路径
-      instances: '2', // 根据CPU核心数启动最大实例数
-      autorestart: true, // 自动重启
-      watch: false, // 禁用文件监视
-      max_memory_restart: '1G', // 内存超过1G自动重启
-      node_args: '-r dotenv/config',
-      env_file: path.resolve(__dirname, '.env'),
+      name: 'img_info_parse',
+      script: 'dist/main.js',
+      instances: 1, // 先改为单实例排查问题
+      exec_mode: 'fork', // 明确使用 fork 模式
+      autorestart: true,
+      watch: false,
+      max_memory_restart: '1G',
+      // 关键配置：强制加载 .env 文件
+      node_args: '-r dotenv/config', // 预加载 dotenv
       env: {
         NODE_ENV: 'production',
-        DOTENV_CONFIG_PATH: path.resolve(__dirname, '.env')
+        DOTENV_CONFIG_PATH: path.resolve(__dirname, '.env'), // 显式指定路径
+        PORT: 3000 // 显式覆盖端口
       },
-      // env: {
-      //   NODE_ENV: 'production',
-      //   PORT: 3000, // 你的应用端口
-      //   // 其他环境变量...
-      // },
-      // env_production: {
-      //   NODE_ENV: 'production',
-      //   PORT: 3000,
-      //   // 生产环境特定变量...
-      // },
-      // 日志配置
       error_file: './logs/error.log',
       out_file: './logs/out.log',
-      log_file: './logs/combined.log',
       log_date_format: 'YYYY-MM-DD HH:mm:ss',
-      time: true, // 日志中显示时间
-    },
-  ],
+      time: true
+    }
+  ]
 };
