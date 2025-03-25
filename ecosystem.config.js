@@ -5,8 +5,9 @@ module.exports = {
     {
       name: 'img_info_parse',
       script: 'dist/main.js',
-      instances: 1, // 先改为单实例排查问题
-      exec_mode: 'fork', // 明确使用 fork 模式
+      instances: 2, // 先改为单实例排查问题
+      // exec_mode: 'fork', // 明确使用 fork 模式
+      exec_mode: 'cluster',
       autorestart: true,
       watch: false,
       max_memory_restart: '1G',
