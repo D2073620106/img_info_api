@@ -59,7 +59,7 @@ export class ImageParseService {
           longitude,
           result: {
             fileSize: fileSizeInBytes,
-            // exif: tags,
+            exif: tags,
           } as any,
         },
       });
