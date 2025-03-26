@@ -20,10 +20,12 @@ import { CustomFileInterceptor } from './custom-file.interceptor';
 import { ResponseUtil } from '@/common/utils/response.util';
 import { UploadResponseDto } from './dto/upload-response.dto';
 import { BaseResponseDto } from '@/common/dto/base-response.dto';
+import { UploadService } from '@/modules/upload/upload.service';
 
 @ApiTags('文件上传')
 @Controller('upload')
 export class UploadController {
+  constructor(private readonly uploadService: UploadService) {}
   @ApiOperation({ summary: '上传图片' })
   @ApiConsumes('multipart/form-data')
   @ApiResponse({
@@ -35,11 +37,14 @@ export class UploadController {
   @Post('image')
   @UseInterceptors(new CustomFileInterceptor('file', 'image'))
   uploadImage(@UploadedFile() file: Express.Multer.File) {
-    return ResponseUtil.success({
-      url: file.path,
-      filename: file.filename,
-      size: file.size,
-      mimetype: file.mimetype,
-    });
+    // return ResponseUtil.success({
+    //   url: file.path,
+    //   filename: file.filename,
+    //   size: file.size,
+    //   mimetype: file.mimetype,
+    // });
+    return ResponseUtil.success(
+      this.uploadService.uploadSingleFile(file),
+    );
   }
 }
