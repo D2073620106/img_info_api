@@ -89,6 +89,9 @@ export class UserService {
     });
     if (user) {
       user.password = '';
+      if (!user.avatar){
+        user.avatar = this.configService.get<string>('STATIC_DOMAIN') + '/uploads/2025/03/26/1742953971074-erv25.png';
+      }
       return user;
     }
     return null;
