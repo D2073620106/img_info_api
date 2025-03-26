@@ -5,7 +5,7 @@
  * @FilePath: \img_parse\src\modules\upload\upload.controller.ts
  */
 import {
-  Controller,
+  Controller, HttpCode,
   Post,
   UploadedFile,
   UseInterceptors,
@@ -35,6 +35,7 @@ export class UploadController {
   })
   @ApiResponse({ status: 400, description: '文件格式错误' })
   @Post('image')
+  @HttpCode(200)
   @UseInterceptors(new CustomFileInterceptor('file', 'image'))
   uploadImage(@UploadedFile() file: Express.Multer.File) {
     // return ResponseUtil.success({
