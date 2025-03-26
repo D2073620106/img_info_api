@@ -29,12 +29,17 @@ export class ImageParseService {
 
       // 获取拍摄时间
       const dateTimeOriginal = tags['DateTimeOriginal']?.description;
-      const shotAt = dateTimeOriginal ? new Date(dateTimeOriginal) : null;
+      let shotAt: Date | null = null;
+      if (dateTimeOriginal) {
+        const [datePart, timePart] = dateTimeOriginal.split(' ');
+        const [year, month, day] = datePart.split(':').map(Number);
+        const [hours, minutes, seconds] = timePart.split(':').map(Number);
+        shotAt = new Date(year, month - 1, day, hours, minutes, seconds);
+      }
 
       // 获取 GPS 信息
       let latitude: number | null = null;
       let longitude: number | null = null;
-
       if (tags['GPSLatitude'] && tags['GPSLongitude']) {
         latitude = tags['GPSLatitude'].description as unknown as number;
         longitude = tags['GPSLongitude'].description as unknown as number;
