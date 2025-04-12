@@ -63,6 +63,6 @@ async function bootstrap() {
   // 注册全局拦截器
   // app.useGlobalInterceptors(new DefaultStatusInterceptor());
 
-  await app.listen(process.env.PORT ?? 3000);
+  await app.listen(process.env.PORT ?? 3001);
 }
 bootstrap();

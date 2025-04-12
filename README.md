@@ -66,6 +66,43 @@ server {
     }
 }
 
+
+# 服务器备份nginx配置
+server {
+    server_name img-info-api.dmmone.top;
+
+    # 限制整个server的上传大小为10MB
+    client_max_body_size 10m;
+   
+    location / {
+        proxy_pass http://localhost:3000; # 假设 NestJS 运行在 3000 端口
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+
+    listen 443 ssl; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/img-info-api.dmmone.top/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/img-info-api.dmmone.top/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+
+}
+server {
+    if ($host = img-info-api.dmmone.top) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+
+    listen 80;
+    server_name img-info-api.dmmone.top;
+    return 404; # managed by Certbot
+
+
+}
+
 #启用配置：
 sudo ln -s /etc/nginx/sites-available/your-domain.com /etc/nginx/sites-enabled
 sudo nginx -t # 测试配置

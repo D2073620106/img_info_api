@@ -16,7 +16,7 @@ module.exports = {
       env: {
         NODE_ENV: 'production',
         DOTENV_CONFIG_PATH: path.resolve(__dirname, '.env'), // 显式指定路径
-        PORT: 3000 // 显式覆盖端口
+        PORT: 3001 // 显式覆盖端口
       },
       error_file: './logs/error.log',
       out_file: './logs/out.log',
