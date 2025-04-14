@@ -3,7 +3,7 @@
 
 一个使用nestjs编写的图片上传解析服务
 
-对应前端：https://github.com/D2073620106/img_info_api
+对应前端：https://github.com/D2073620106/img_info_app
 
 ## 启动
 
