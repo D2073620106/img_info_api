@@ -12,7 +12,7 @@ module.exports = {
       watch: false,
       max_memory_restart: '1G',
       // 关键配置：强制加载 .env 文件
-      node_args: '-r dotenv/config', // 预加载 dotenv
+      // node_args: '-r dotenv/config', // 预加载 dotenv
       env: {
         NODE_ENV: 'production',
         DOTENV_CONFIG_PATH: path.resolve(__dirname, '.env'), // 显式指定路径
